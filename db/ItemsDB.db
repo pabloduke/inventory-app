@@ -1,0 +1,13 @@
+CREATE TABLE item (
+	category NVARCHAR(50),
+	name NVARCHAR(50) PRIMARY KEY NOT NULL,
+	desc NVARCHAR(100)  NULL,
+	price BIGINT(19)  NULL
+);
+
+INSERT INTO item (category, name, desc, price) VALUES ("Food", "Apple", "Kinda healthy, better options available", 1.99);
+
+INSERT INTO item
+VALUES ("Food", "Orange", "Kinda healthy, better options available", 1.99);
+
+INSERT INTO item (category, name, desc, price) VALUES ("Drink", "Coffee", "Makes you smarter", 1.99);
