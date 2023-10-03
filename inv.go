@@ -37,10 +37,10 @@ func main() {
 	coffee := Drink{name: "Coffee"}
 
 	println(apple.name, orange.name, coffee.name)
-	ReadItem()
+	ListAllItems()
 	item := enterItem()
 	AddItem(item)
-	ReadItem()
+	ListAllItems()
 
 }
 

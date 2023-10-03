@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func ReadItem() {
+func ListAllItems() {
 	db, err := sql.Open("sqlite3", "db/invDB.db")
 	if err != nil {
 		panic(err)
