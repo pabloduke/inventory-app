@@ -1,9 +1,8 @@
 package main
 
 import (
-	"database/sql"
-	"fmt"
 	_ "github.com/mattn/go-sqlite3"
+	"strconv"
 )
 
 // Item /**
@@ -38,51 +37,24 @@ func main() {
 	coffee := Drink{name: "Coffee"}
 
 	println(apple.name, orange.name, coffee.name)
-	readDB()
+	ReadItem()
+	item := enterItem()
+	AddItem(item)
+	ReadItem()
 
 }
 
-func readDB() {
-	db, err := sql.Open("sqlite3", "db/invDB.db")
+func enterItem() (item Food) {
+
+	item.name = Input("Enter item name >> ")
+	item.desc = Input("Enter item description >> ")
+	price := Input("Enter item price >> ")
+	item.category = Input("Enter item category >> ")
+	convertedPrice, err := strconv.ParseInt(price, 10, 64)
+	item.price = convertedPrice
 	if err != nil {
-		panic(err)
-	}
-	defer func(db *sql.DB) {
-		err := db.Close()
-		if err != nil {
-
-		}
-	}(db) // Make sure to close the database when you're done with it.
-
-	querySQL := "SELECT * FROM item"
-	rows, err := db.Query(querySQL)
-	if err != nil {
-		panic(err)
-	}
-	defer func(rows *sql.Rows) {
-		err := rows.Close()
-		if err != nil {
-
-		}
-	}(rows)
-
-	for rows.Next() {
-		var category string
-		var name string
-		var desc string
-		var price int64
-		err := rows.Scan(&category, &name, &desc, &price)
-		if err != nil {
-			panic(err)
-		}
-
-		println("ITEM:")
-		fmt.Println("Category: ", category)
-		fmt.Println("Name: ", name)
-		fmt.Println("Description: ", desc)
-		fmt.Println("Price: ", price)
-
-		// Process the retrieved data
+		return
 	}
 
+	return item
 }
