@@ -18,7 +18,7 @@ func CreateDB() {
 		}
 	}
 
-	executeSqlFile("sql/item.sql")
+	ExecuteSqlFile("sql/item.sql")
 
 	log.Print("New Database created")
 

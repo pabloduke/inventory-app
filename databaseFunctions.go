@@ -79,7 +79,7 @@ func AddItem(item Food) {
 	}
 }
 
-func executeSqlFile(file string) {
+func ExecuteSqlFile(file string) {
 	db, err := sql.Open("sqlite3", "db/invDB.db")
 	if err != nil {
 		panic(err)

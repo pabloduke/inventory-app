@@ -2,6 +2,7 @@ package main
 
 import (
 	_ "github.com/mattn/go-sqlite3"
+	"os"
 	"strconv"
 )
 
@@ -32,21 +33,36 @@ type Drink struct {
 }
 
 func main() {
-	apple := Food{name: "Apple"}
-	orange := Food{name: "Orange"}
-	coffee := Drink{name: "Coffee"}
-
-	println(apple.name, orange.name, coffee.name)
 	CreateDB()
-	ListAllItems()
+	//ListAllItems()
+	selectAction()
 	item := enterItem()
 	AddItem(item)
-	ListAllItems()
+	//ListAllItems()
 
 }
 
-func enterItem() (item Food) {
+func selectAction() {
+	for {
+		println("0.) Quit")
+		println("1.) Create New Item")
+		println("2.) List all existing Items")
 
+		input := Input("Please make a selection >>  ")
+
+		if input == "0" {
+			os.Exit(0)
+		} else if input == "1" {
+			enterItem()
+		} else if input == "2" {
+			ListAllItems()
+		} else {
+			println("INVALID SELECTION")
+		}
+	}
+}
+
+func enterItem() (item Food) {
 	item.name = Input("Enter item name >> ")
 	item.desc = Input("Enter item description >> ")
 	price := Input("Enter item price >> ")
