@@ -3,6 +3,9 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"io/ioutil"
+	"log"
+	"os"
 )
 
 func ListAllItems() {
@@ -33,7 +36,7 @@ func ListAllItems() {
 		var category string
 		var name string
 		var desc string
-		var price int64
+		var price float64
 		err := rows.Scan(&category, &name, &desc, &price)
 		if err != nil {
 			panic(err)
@@ -73,5 +76,35 @@ func AddItem(item Food) {
 	}
 	if err != nil {
 		panic(err)
+	}
+}
+
+func executeSqlFile(file string) {
+	db, err := sql.Open("sqlite3", "db/invDB.db")
+	if err != nil {
+		panic(err)
+	}
+	defer func(db *sql.DB) {
+		err := db.Close()
+		if err != nil {
+
+		}
+	}(db)
+	// Read the SQL file
+	sqlFile, err := os.Open(file)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer sqlFile.Close()
+
+	sqlBytes, err := ioutil.ReadAll(sqlFile)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Execute the SQL statements
+	_, err = db.Exec(string(sqlBytes))
+	if err != nil {
+		log.Fatal(err)
 	}
 }

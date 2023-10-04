@@ -11,7 +11,7 @@ import (
 type Item interface {
 	category() string
 	name() string
-	price() int64
+	price() float64
 	desc() string
 }
 
@@ -19,7 +19,7 @@ type Food struct {
 	//implements Item
 	category string
 	name     string
-	price    int64
+	price    float64
 	desc     string
 }
 
@@ -27,7 +27,7 @@ type Drink struct {
 	//implements Item
 	category string
 	name     string
-	price    int64
+	price    float64
 	desc     string
 }
 
@@ -37,6 +37,7 @@ func main() {
 	coffee := Drink{name: "Coffee"}
 
 	println(apple.name, orange.name, coffee.name)
+	CreateDB()
 	ListAllItems()
 	item := enterItem()
 	AddItem(item)
@@ -50,7 +51,7 @@ func enterItem() (item Food) {
 	item.desc = Input("Enter item description >> ")
 	price := Input("Enter item price >> ")
 	item.category = Input("Enter item category >> ")
-	convertedPrice, err := strconv.ParseInt(price, 10, 64)
+	convertedPrice, err := strconv.ParseFloat(price, 64)
 	item.price = convertedPrice
 	if err != nil {
 		return
